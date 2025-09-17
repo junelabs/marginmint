@@ -379,8 +379,7 @@ export default function Page() {
                 This free tool stays free thanks to sponsors. Want to reach indie CPG founders?
               </p>
               <div className="flex items-center justify-between gap-3">
-                <div className="text-xs text-gray-500">~2–5k operators/month • Top placement</div>
-                <Button href="https://cal.com/" variant="primary">Sponsor</Button>
+                <Button href="https://cal.com/" variant="primary">Sponsor this site</Button>
               </div>
             </div>
           </Card>
