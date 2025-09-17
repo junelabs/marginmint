@@ -247,7 +247,7 @@ export default function Page() {
   return (
     <main className="mx-auto max-w-5xl px-4 py-10">
       {/* Header */}
-      <div className="mb-8 flex items-center justify-between">
+      <div className="mb-8">
         <div>
           <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">MarginMint — CPG Margin Calculator</h1>
           <p className="text-gray-600 mt-2">
@@ -258,97 +258,96 @@ export default function Page() {
             <li>What it does: retail & wholesale margins, case profit, MSRP needed for a target margin</li>
             <li><span className="font-semibold">Free</span> for now • Ad-supported</li>
           </ul>
+
+          {/* Suggestions button below text on mobile, floats right on desktop */}
+          <div className="mt-4 md:absolute md:top-10 md:right-10">
+            <Button variant="ghost" href={MAILTO}>
+              Suggestions & Improvements
+            </Button>
+          </div>
         </div>
-        <Button variant="ghost" href={MAILTO}>
-          Suggestions & Improvements
-        </Button>
       </div>
 
       <div className="grid md:grid-cols-3 gap-5">
         {/* Left: Inputs */}
         <div className="md:col-span-2 space-y-5">
+          {/* Costs per Unit */}
           <Card title="Costs per Unit">
             <div className="grid sm:grid-cols-2 gap-4">
+              {/* Each input w/ tooltips */}
               <div>
                 <Label htmlFor="cogs">
                   COGS (ingredients)
-                  <InfoTooltip text="Raw ingredients per unit. Increases unit cost and lowers retail & wholesale margins." />
+                  <InfoTooltip text="Raw ingredients per unit. Increases unit cost and lowers margins." />
                 </Label>
                 <NumberInput id="cogs" prefix="$" value={cogs} onChange={setCogs} />
-                <p className="mt-1 text-xs text-gray-500">Example: coffee, flour, sugar, flavoring per unit.</p>
               </div>
               <div>
                 <Label htmlFor="packaging">
                   Packaging
-                  <InfoTooltip text="Bags, bottles, labels, wrappers per unit. Raises unit cost and reduces all margins." />
+                  <InfoTooltip text="Bags, bottles, labels, wrappers per unit. Raises unit cost and reduces margins." />
                 </Label>
                 <NumberInput id="packaging" prefix="$" value={packaging} onChange={setPackaging} />
-                <p className="mt-1 text-xs text-gray-500">Include label + container + inserts per sellable unit.</p>
               </div>
               <div>
                 <Label htmlFor="shipFulfill">
                   Ship / Fulfillment
-                  <InfoTooltip text="Pick/pack labor, packaging materials, and any postage you subsidize per unit." />
+                  <InfoTooltip text="Pick/pack labor, packaging, postage subsidized per unit." />
                 </Label>
                 <NumberInput id="shipFulfill" prefix="$" value={shipFulfill} onChange={setShipFulfill} />
-                <p className="mt-1 text-xs text-gray-500">Set to 0 if shipping is fully charged to the customer.</p>
               </div>
               <div>
                 <Label htmlFor="overhead">
                   Overhead (allocated)
-                  <InfoTooltip text="Allocated rent, utilities, labor, software per unit. Shows true margins." />
+                  <InfoTooltip text="Rent, utilities, labor, software per unit. Shows true margin impact." />
                 </Label>
                 <NumberInput id="overhead" prefix="$" value={overhead} onChange={setOverhead} />
-                <p className="mt-1 text-xs text-gray-500">Example: $2,000/mo ÷ 8,000 units ≈ $0.25.</p>
               </div>
               <div>
                 <Label htmlFor="unitsPerCase">
                   Units per Case
-                  <InfoTooltip text="How many sellable units per wholesale case. Changes case profit only." />
+                  <InfoTooltip text="Sellable units per wholesale case. Changes case profit only." />
                 </Label>
                 <NumberInput id="unitsPerCase" value={unitsPerCase} onChange={setUnitsPerCase} step={1} />
-                <p className="mt-1 text-xs text-gray-500">Common: 6, 8, 12, or 24.</p>
               </div>
             </div>
           </Card>
 
+          {/* Channel & Pricing */}
           <Card title="Channel & Pricing">
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="msrp">
                   MSRP (Retail Price)
-                  <InfoTooltip text="Sticker price before tax. Drives retail margin & retail unit/case profit." />
+                  <InfoTooltip text="Sticker price. Drives retail margin & profit." />
                 </Label>
                 <NumberInput id="msrp" prefix="$" value={msrp} onChange={setMsrp} />
-                <p className="mt-1 text-xs text-gray-500">Tip: use the Target Margin slider below to solve MSRP.</p>
               </div>
               <div>
                 <Label htmlFor="retailFeePct">
                   Retail Fees (%)
-                  <InfoTooltip text="Marketplaces + payment processing (e.g., 5% + 2.9% + $0.30)." />
+                  <InfoTooltip text="Marketplace + payment processing fees." />
                 </Label>
                 <NumberInput id="retailFeePct" suffix="%" value={retailFeePct} onChange={setRetailFeePct} step={0.25} />
-                <p className="mt-1 text-xs text-gray-500">If you have fixed fees like $0.30, approximate as % of order.</p>
               </div>
               <div>
                 <Label htmlFor="wholesalePrice">
                   Wholesale Price
-                  <InfoTooltip text="Your per-unit price to retailers/distributors. Often ~50% of MSRP." />
+                  <InfoTooltip text="Your per-unit price to retailers/distributors." />
                 </Label>
                 <NumberInput id="wholesalePrice" prefix="$" value={wholesalePrice} onChange={setWholesalePrice} />
-                <p className="mt-1 text-xs text-gray-500">Rule of thumb: start near 50% of MSRP, adjust by category.</p>
               </div>
               <div>
                 <Label htmlFor="wholesaleFeePct">
                   Wholesale Fees (%)
-                  <InfoTooltip text="Fees on wholesale orders (processing, portals). Reduces wholesale margin." />
+                  <InfoTooltip text="Portal/processing fees on wholesale." />
                 </Label>
                 <NumberInput id="wholesaleFeePct" suffix="%" value={wholesaleFeePct} onChange={setWholesaleFeePct} step={0.25} />
-                <p className="mt-1 text-xs text-gray-500">Set to 0 if invoicing by ACH/check with no fee.</p>
               </div>
             </div>
           </Card>
 
+          {/* Target Margin Slider */}
           <Card title="Target Margin → Required MSRP">
             <div className="space-y-3">
               <div className="flex items-center gap-3">
@@ -371,20 +370,22 @@ export default function Page() {
           </Card>
         </div>
 
-        {/* Right: Sponsored on top, then Live Stats, then Export */}
+        {/* Right Column */}
         <div className="space-y-5">
+          {/* Sponsored */}
           <Card title="Sponsored">
             <div className="space-y-3 text-sm text-gray-700">
               <p className="text-gray-600">
-                This free tool stays free thanks to sponsors. Interested in reaching indie CPG founders?
+                This free tool stays free thanks to sponsors. Want to reach indie CPG founders?
               </p>
               <div className="flex items-center justify-between gap-3">
-                <div className="text-xs text-gray-500">~2–5k CPG operators/month • Above-the-fold placement</div>
-                <Button href="https://cal.com/" variant="primary">Sponsor this spot</Button>
+                <div className="text-xs text-gray-500">~2–5k operators/month • Top placement</div>
+                <Button href="https://cal.com/" variant="primary">Sponsor</Button>
               </div>
             </div>
           </Card>
 
+          {/* Live Stats */}
           <Card title="Live Stats">
             <div className="grid grid-cols-1 gap-4">
               <Stat label="Unit Cost (before fees)" value={money(unitCostBeforeFees)} emphasize />
@@ -399,11 +400,12 @@ export default function Page() {
             </div>
           </Card>
 
+          {/* Export */}
           <Card>
             <div className="flex items-center justify-between gap-3">
               <div>
                 <div className="text-sm font-medium">Export CSV</div>
-                <div className="text-xs text-gray-500">Download your inputs and computed margins instantly.</div>
+                <div className="text-xs text-gray-500">Download your inputs + computed results instantly.</div>
               </div>
               <Button variant="ghost" onClick={handleCsvExport}>Export</Button>
             </div>
@@ -413,7 +415,8 @@ export default function Page() {
 
       <footer className="mt-10 text-center text-sm text-gray-500">
         <p>
-          Built with ❤️ for CPG brands by <a className="underline" href="https://www.june.cx" target="_blank" rel="noreferrer">JUNE</a>. Free & ad-supported.
+          Built with ❤️ for CPG brands by{" "}
+          <a className="underline" href="https://www.june.cx" target="_blank" rel="noreferrer">JUNE</a>. Free & ad-supported.
         </p>
       </footer>
     </main>
