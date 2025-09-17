@@ -247,26 +247,36 @@ export default function Page() {
   return (
     <main className="mx-auto max-w-5xl px-4 py-10">
       {/* Header */}
-      <div className="mb-8">
-        <div>
-          <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">MarginMint — CPG Margin Calculator</h1>
-          <p className="text-gray-600 mt-2">
-            For indie CPG founders. Plug in your costs → instant unit economics, margins, and case profit.
-          </p>
-          <ul className="mt-3 text-gray-800 list-disc list-inside space-y-1">
-            <li>Who it’s for: coffee, snacks, beverages, functional food</li>
-            <li>What it does: retail & wholesale margins, case profit, MSRP needed for a target margin</li>
-            <li><span className="font-semibold">Free</span> for now • Ad-supported</li>
-          </ul>
+<div className="mb-8 md:flex md:items-start md:justify-between">
+  {/* Left: title + intro */}
+  <div>
+    <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">
+      MarginMint — CPG Margin Calculator
+    </h1>
+    <p className="text-gray-600 mt-2">
+      For indie CPG founders. Plug in your costs → instant unit economics, margins, and case profit.
+    </p>
+    <ul className="mt-3 text-gray-800 list-disc list-inside space-y-1">
+      <li>Who it’s for: coffee, snacks, beverages, functional food</li>
+      <li>What it does: retail & wholesale margins, case profit, MSRP needed for a target margin</li>
+      <li><span className="font-semibold">Free</span> for now • Ad-supported</li>
+    </ul>
 
-          {/* Suggestions button below text on mobile, floats right on desktop */}
-          <div className="mt-4 md:absolute md:top-10 md:right-10">
-            <Button variant="ghost" href={MAILTO}>
-              Suggestions & Improvements
-            </Button>
-          </div>
-        </div>
-      </div>
+    {/* Mobile: show below text */}
+    <div className="mt-4 md:hidden">
+      <Button variant="ghost" href={MAILTO}>
+        Suggestions & Improvements
+      </Button>
+    </div>
+  </div>
+
+  {/* Desktop: align to the right edge of the content, not the viewport */}
+  <div className="hidden md:block md:ml-6 md:shrink-0">
+    <Button variant="ghost" href={MAILTO}>
+      Suggestions & Improvements
+    </Button>
+  </div>
+</div>
 
       <div className="grid md:grid-cols-3 gap-5">
         {/* Left: Inputs */}
