@@ -389,7 +389,7 @@ export default function Page() {
                 This free tool stays free thanks to sponsors. Want to reach indie CPG founders?
               </p>
               <div className="flex items-center justify-between gap-3">
-                <Button href="https://cal.com/" variant="primary">Sponsor this site</Button>
+                <Button href="https://buy.stripe.com/7sY8wO6XGfWKcYU73s5AQ03" variant="primary">Sponsor this site</Button>
               </div>
             </div>
           </Card>
